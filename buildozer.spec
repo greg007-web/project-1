@@ -36,7 +36,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy,numpy,pil,android
+requirements = python3,kivy,numpy,pil,android,jnius
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -156,7 +156,7 @@ android.minapi = 29
 
 # (list) Gradle dependencies to add (currently works only with sdl2_gradle
 # bootstrap)
-android.gradle_dependencies = "org.tensorflow:tensorflow-lite:+","org.tensorflow:tensorflow-lite-support:0.0.0-nightly"
+#android.gradle_dependencies = "org.tensorflow:tensorflow-lite:+","org.tensorflow:tensorflow-lite-support:0.0.0-nightly"
 
 # (list) add java compile options
 # this can for example be necessary when importing certain java libraries using the 'android.gradle_dependencies' option
