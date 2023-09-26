@@ -1,42 +1,16 @@
-name: CI
+name: Latest blog post workflow
 on:
-  push:
-    branches: [ main ]
-
+  push:  # Everytime index.html is pushed, this action runs and updates the blogs section!
+    
 jobs:
-  build:
-    runs-on: ubuntu-20.04
-
+  update-readme-with-blog:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      # used to cache dependencies with a timeout
-      - name: Get Date
-        id: get-date
-        run: |
-          echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
-        shell: bash
-
-      - name: Cache Buildozer global directory
-        uses: actions/cache@v2
-        with:
-          path: .buildozer_global
-          key: buildozer-global-${{ hashFiles('buildozer.spec') }} # Replace with your path
-
-      - uses: actions/cache@v2
-        with:
-          path: .buildozer
-          key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
-
-      - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
-        with:
-          command: buildozer android debug
-          buildozer_version: stable
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: package
-          path: ${{ steps.buildozer.outputs.filename }}
+        - uses: actions/checkout@v2
+        - uses: gautamkrishnar/blog-post-workflow@master
+          with:
+            feed_list: <Your feedlist>
+            max_post_count: 7
+            readme_path: index.html
+            template: "$newline <h2 class='h2-blog'><a class='a-lightblue' href=$url>$title</a></h2>$newline <br>"  # Do not change the template as it will not render good results!
+            gh_token: ${{ secrets.TOKEN }}
