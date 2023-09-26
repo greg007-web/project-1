@@ -1,31 +1,41 @@
-import kivy
+import os
 from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.camera import Camera
+from kivy.uix.label import Label
 from kivy.uix.button import Button
-
-kivy.require('2.2.1')
+from kivy.uix.boxlayout import BoxLayout
 
 class CameraApp(App):
-
     def build(self):
         layout = BoxLayout(orientation='vertical')
 
-        # Câmera
-        self.camera = Camera(play=True)
-        layout.add_widget(self.camera)
+        # Create camera instance
+        self.cam = Camera(resolution=(640, 480), play=True)
 
-        # Botão para tirar a foto
-        self.capture_button = Button(text="Capturar", size_hint=(None, None), size=(100, 50))
-        self.capture_button.bind(on_press=self.take_picture)
-        layout.add_widget(self.capture_button)
+        # Create button
+        self.btn = Button(
+            text="Capture",
+            size_hint=(1, 0.2),
+            font_size=35,
+            background_color='green',
+            on_press=self.capture_image)
+
+        # Create label
+        self.lbl = Label(
+            text="Press the button to capture",
+            size_hint=(1, 0.2))
+
+        # Add widgets to layout
+        layout.add_widget(self.cam)
+        layout.add_widget(self.btn)
+        layout.add_widget(self.lbl)
 
         return layout
 
-    def take_picture(self, *args):
-        # Captura a imagem
-        self.camera.export_to_png('image.png')
-        print("Imagem capturada e salva como image.png")
+    def capture_image(self, *args):
+        # Save captured image
+        self.cam.export_to_png(os.path.join(os.getcwd(), 'img.png'))
+        self.lbl.text = "Image saved as img.png"
 
 if __name__ == '__main__':
     CameraApp().run()
