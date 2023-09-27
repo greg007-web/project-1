@@ -1,44 +1,41 @@
+import os
 from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.camera import Camera
+from kivy.uix.label import Label
 from kivy.uix.button import Button
-from kivy.utils import platform
-from android.permissions import request_permissions, Permission
+from kivy.uix.boxlayout import BoxLayout
 
 class CameraApp(App):
     def build(self):
-        # Verificar a plataforma
-        if platform == 'android':
-            self.request_android_permissions()
-
         layout = BoxLayout(orientation='vertical')
 
-        # Criar instância da câmera
+        # Create camera instance
         self.cam = Camera(resolution=(640, 480), play=True)
 
-        # Criar botão para capturar
-        self.capture_btn = Button(
+        # Create button
+        self.btn = Button(
             text="Capture",
             size_hint=(1, 0.2),
             font_size=35,
             background_color='green',
-            on_press=self.capture_image
-        )
+            on_press=self.capture_image)
 
+        # Create label
+        self.lbl = Label(
+            text="Press the button to capture",
+            size_hint=(1, 0.2))
+
+        # Add widgets to layout
         layout.add_widget(self.cam)
-        layout.add_widget(self.capture_btn)
+        layout.add_widget(self.btn)
+        layout.add_widget(self.lbl)
+
         return layout
 
-    def request_android_permissions(self):
-        permissions = [
-            Permission.CAMERA,
-            Permission.WRITE_EXTERNAL_STORAGE
-        ]
-        request_permissions(permissions)
-
     def capture_image(self, *args):
-        # Salvar a imagem capturada
-        self.cam.export_to_png('captured_image.png')
+        # Save captured image
+        self.cam.export_to_png(os.path.join(os.getcwd(), 'img.png'))
+        self.lbl.text = "Image saved as img.png"
 
 if __name__ == '__main__':
     CameraApp().run()
