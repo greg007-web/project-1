@@ -1,7 +1,7 @@
 [app]
 
 # (str) Title of your application
-title = Butterfly Detector
+title = abc
 
 # (str) Package name
 package.name = myapp
@@ -28,7 +28,7 @@ source.include_exts = py,png,jpg,tflite
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-version = 0.1
+version = 0.7
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
@@ -36,7 +36,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy,numpy,pillow,android
+requirements = python3,kivy,numpy,pil,android,jnius
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -46,13 +46,13 @@ requirements = python3,kivy,numpy,pillow,android
 #garden_requirements =
 
 # (str) Presplash of the application
-presplash.filename = %(source.dir)s/butterfly_img.png
+#presplash.filename = %(source.dir)s/butterfly_img.png
 
 # (str) Icon of the application
-icon.filename = %(source.dir)s/Aha-Soft-Free-Game-Butterfly.ico
+#icon.filename = %(source.dir)s/Aha-Soft-Free-Game-Butterfly.ico
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
-orientation = portrait
+orientation = landscape
 
 # (list) List of service to declare
 #services = NAME:ENTRYPOINT_TO_PY,NAME2:ENTRYPOINT2_TO_PY
@@ -91,7 +91,8 @@ android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE
 android.api = 30
 
 # (int) Minimum API your APK will support.
-android.minapi = 29
+android.minapi = 28
+#android.minapi = 28
 
 # (int) Android SDK version to use
 #android.sdk = 20
